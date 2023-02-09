@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>GabDog</title>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+    </style>
+    <script type="module">
+
+        // TODO: ADD YOUR imports and Firebase setup code HERE
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOAK9AWSXHP1IHsWXtmJnOd1caNOJns5U",
+            authDomain: "high-scores-1acfd.firebaseapp.com",
+            projectId: "high-scores-1acfd",
+            storageBucket: "high-scores-1acfd.appspot.com",
+            messagingSenderId: "913599315346",
+            appId: "1:913599315346:web:27b2520cd359bf665d154b"
+
+        };
+        let favList = document.querySelector("#favoritesList");
+
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        import { getDatabase, ref, set, push, onValue, increment } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+        console.log(app);
+        const writeUserData = (userId, name, email) => {
+            const db = getDatabase();
+            set(ref(db, "users/" + userId), {
+                username: name,
+                email: email
+            });
+        };
+        console.log(app); // make sure firebase is loaded
+        //
+
+        // This is the "harder" way and not necessary for incrementing a counter
+        // But this code is useful if you want to `get()` a value just once
+        // and/or do "batch" updates of non-numeric values with `update()`
+        const writeFavNameData = name => {
+            const db = getDatabase();
+            const favRef = ref(db, 'favorites/' + name);
+
+            // does it already exist?
+            // get will just look once
+            get(favRef).then(snapshot => {
+                let favorite;
+                if (snapshot.exists()) {
+                    // if it's already in "favorites/" - update the number of likes
+                    favorite = snapshot.val();
+                    console.log("found - current values=", favorite);
+                    const likes = favorite.likes + 1;
+                    const newData = {
+                        name,
+                        likes
+                    };
+                    const updates = {};
+                    updates['favorites/' + name] = newData;
+                    update(ref(db), updates);
+                } else {
+                    // if it does not exist, add to "mostFavorited/"
+                    console.log(`No favorite of key='${name}' found`);
+                    console.log("favorite=", favorite);
+                    set(favRef, {
+                        name,
+                        likes: 1
+                    });
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>GabDog&trade;</h1>
+    <h3>We want to know - what's a good dog name?</h3>
+    <p>Name --> <input value="Rover" id="nameField"></p>
+    <button id="btnSubmit">Send Name to Server</button>
+    <hr>
+    <h3>Popular Names</h3>
+    <ol id="favoritesList"></ol>
+</body>
+
+</html>

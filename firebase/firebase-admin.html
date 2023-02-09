@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Firebase Admin</title>
+</head>
+
+<body>
+    <h1>High Scores</h1>
+    <ul id="scoresList">
+        <li></li>
+    </ul>
+
+    <script type="module">
+        /* #1 - The Firebase setup code goes here  - both imports, `firebaseConfig` and `app` */
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOAK9AWSXHP1IHsWXtmJnOd1caNOJns5U",
+            authDomain: "high-scores-1acfd.firebaseapp.com",
+            projectId: "high-scores-1acfd",
+            storageBucket: "high-scores-1acfd.appspot.com",
+            messagingSenderId: "913599315346",
+            appId: "1:913599315346:web:27b2520cd359bf665d154b"
+
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+        console.log(app);
+        const writeUserData = (userId, name, email) => {
+            const db = getDatabase();
+            set(ref(db, "users/" + userId), {
+                username: name,
+                email: email
+            });
+        };
+        console.log(app); // make sure firebase is loaded
+
+
+
+        // #2 NEW STUFF
+        const db = getDatabase();
+        const scoresRef = ref(db, 'scores');
+
+        const scoresChanged = (snapshot) => {
+            snapshot.forEach(score => {
+                let list = document.querySelector('li');
+                const childKey = score.key;
+                const childData = score.val();
+                console.log(`User:${childData.userId}`)
+                console.log(`Game:${childData.game}`)
+                console.log(`Score:${childData.score}`)
+                list.innerHTML += `<li>User:${childData.userId} Game:${childData.game} Score:${childData.score}</li>`
+                console.log(childKey, childData);
+            });
+        }
+
+        onValue(scoresRef, scoresChanged);
+
+    </script>
+</body>
+
+</html>

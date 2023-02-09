@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Project 2 - App</title>
+	<link href="styles/default-styles.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="icon" type="image/x-icon" href="images/musicnote.png">
+
+
+	<script src="./src/loader.js" type="module"></script>
+	<script type="module" src="src/loader.js"></script>
+
+</head>
+
+<body>
+	<app-header></app-header>
+
+	<app-navbar data-nav="application"></app-navbar>
+
+	<main>
+		<canvas width="800" height="400"></canvas>
+		<div id="controls">
+			<section>
+				<button id="playButton" data-playing="no"></button>
+				<button id="fsButton">Full Screen</button>
+
+				<label>Track:
+					<select id="trackSelect">
+
+						<option value="media/Immediate Threst.mp3" title="Xenoblade" selected>Xenoblade Chronicles 3 -
+							Immediate Threat</option>
+						<option value="media/Octopath-Traveler-Boss.mp3" title="Octopath">Octopath Traveler Boss Theme
+						</option>
+						<option value="media/Funeral-of-Flowers.mp3" title="FireEmblem">Fire Emblem - Funeral of Flowers
+
+
+
+					</select>
+				</label>
+			</section>
+
+			<section>
+				Volume: <input type="range" id="volumeSlider" min="0" max="2" value="1" step="0.01">
+				<span id="volumeLabel">Max</span>
+			</section>
+			<section>
+				<div id="container-checkbox">
+					<span><input type="checkbox" id="barsCB"><label for="barsCB">Show Bars</label></span>
+					<!-- we'll use this 4th checkbox soon! -->
+					<span><input type="checkbox" id="noiseCB"><label for="noiseCB">Show Noise</label></span>
+					<span><input type="checkbox" id="invertCB"><label for="invertCB">Invert Colors</label></span>
+					<span><input type="checkbox" id="embossCB"><label for="embossCB">Show Emboss</label></span>
+					<span><input type="checkbox" id="circleBarCB"><label for="circleBarCB">Show Circles
+							Bar</label></span>
+					<p>
+						<span><label for="cb-highshelf">Highshelf Filter (Treble) </label><input type="checkbox"
+								id="cb-highshelf"></span>
+						<span><label for="cb-lowshelf">Lowshelf Filter (Bass) </label><input type="checkbox"
+								id="cb-lowshelf"></span>
+						<span><label for="cb-distortion">Distortion </label><input type="checkbox"
+								id="cb-distortion"></span>
+						<span>0 <input type="range" min="0" max="100" value="0" id="slider-distortion"> 100</span>
+					</p>
+
+					<span><input type="checkbox" id="radial-bar-CB"><label for="radial-bar-CB">Show Fireworks</label>
+						<span>Bar Height: 0 <input type="range" min="0" max="5" value="0" id="slider-barheight">
+							5</span>
+					</span>
+				</div>
+				<!-- Creating a rgb slider to affect the colors on canvas later -->
+				<div id="slider-container">
+					<span><b>Change Color of Circle Bar</b></span>
+					<!-- Sliders underneath, range between 0-255 -->
+					<div class="wrapper-color">
+						R<input type="range" min="0" max="255" value="0" id="red"> </div>
+					<div class="wrapper-color">
+						G<input type="range" min="0" max="255" value="0" id="green"> </div>
+					<div class="wrapper-color">
+						B<input type="range" min="0" max="255" value="0" id="blue"> </div>
+				</div>
+			</section>
+
+		</div>
+	</main>
+	<app-footer></app-footer>
+
+</body>
+
+</html>

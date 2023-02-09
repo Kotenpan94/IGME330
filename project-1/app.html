@@ -1,0 +1,104 @@
+<html lang="en">
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genshin Impact Team and Info Builder App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles/default-styles.css">
+  <script type="module" src="src/loader.js"></script>
+  <script type="module" src="./src/app.js"></script>
+
+
+  <style>
+    select#field-limit {
+      width: 2.5rem;
+    }
+
+    h2.subtitle {
+      font-family: 'Underdog', sans-serif;
+    }
+
+    #element-card-holder {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      grid-gap: 0.5em;
+    }
+  </style>
+</head>
+
+<body>
+  <app-header></app-header>
+  <app-navbar data-nav="application"></app-navbar>
+
+
+  <!-- Main Page -->
+  <main class="px-1">
+    <div class="has-background-success mr-1 p-1">
+      <div class="is-large p-4">
+        <!-- Row #1 -->
+        <div class="title has-text-light">
+          Genshin Impact Team and Info Builder App
+        </div>
+        <!-- Row #2 - Instructions -->
+        <div class="box mt-2">
+          <p class="mb-5">
+            * Type in the character or enemy that you are searching for<br>
+            * Then click the button to start the search!
+          </p>
+          <!-- Row #2 - Controls -->
+          <div id="box-controls" class="box">
+            <div class="control is-inline-block mr-3">
+              <span class="subtitle has-text-weight-bold">
+                Character:
+              </span>
+
+              <input class="character-storage" type="text" value="sayu">
+            </div>
+            <div class="control is-inline-block mr-3">
+              <span class="subtitle has-text-weight-bold">
+                Enemy:
+              </span>
+
+              <input class="enemy-storage" type="text" value="abyss-mage">
+            </div>
+
+            <div class="control is-inline-block ml-6">
+              <button id="btn-search" class="button is-primary is-medium" title="Search for some dog pictures">
+                Search!
+              </button>
+            </div>
+            <div class="control is-inline-block ml-6">
+              <button id="btn-clear-all" class="button is-warning is-medium" title="Clear all Results!">
+                Clear All Results
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box has-background-info-dark">
+          <div class="is-large p-1">
+            <h2 class="subtitle has-text-weight-bold mb-2 mt-0 has-text-light">My Results</h2>
+            <p id="element-status" class="has-text-warning mb-2">Click the <b>Search</b> button to see characters</p>
+            <div id="element-card-holder">
+              <!-- Search results go here -->
+            </div>
+          </div>
+        </div>
+        
+
+
+
+      </div>
+    </div>
+  </main>
+
+
+
+</body>
+
+</html>
